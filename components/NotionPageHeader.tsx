@@ -4,33 +4,8 @@ import * as React from 'react'
 import { Breadcrumbs, Header, Search, useNotionContext } from 'react-notion-x'
 
 import { isSearchEnabled, navigationLinks, navigationStyle } from '@/lib/config'
-import { MoonIcon } from '@/lib/icons/moon'
-import { SunIcon } from '@/lib/icons/sun'
-import { useDarkMode } from '@/lib/use-dark-mode'
 
 import styles from './styles.module.css'
-
-function ToggleThemeButton() {
-  const [hasMounted, setHasMounted] = React.useState(false)
-  const { isDarkMode, toggleDarkMode } = useDarkMode()
-
-  React.useEffect(() => {
-    setHasMounted(true)
-  }, [])
-
-  const onToggleTheme = React.useCallback(() => {
-    toggleDarkMode()
-  }, [toggleDarkMode])
-
-  return (
-    <div
-      className={cs('breadcrumb', 'button', !hasMounted && styles.hidden)}
-      onClick={onToggleTheme}
-    >
-      {hasMounted && isDarkMode ? <MoonIcon /> : <SunIcon />}
-    </div>
-  )
-}
 
 export function NotionPageHeader({
   block
@@ -78,8 +53,6 @@ export function NotionPageHeader({
               }
             })
             .filter(Boolean)}
-
-          <ToggleThemeButton />
 
           {isSearchEnabled && <Search block={block} title={null} />}
         </div>

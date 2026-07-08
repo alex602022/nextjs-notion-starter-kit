@@ -15,6 +15,14 @@
 - **导航**：`navigationStyle: 'custom'` + `navigationLinks`，首页顶部常驻 About / Contact 导航，不用再翻内页找链接。
 - **图片组件现代化**：`nextLegacyImage` → `nextImage`，用 `next/image` 替换已弃用的 `next/legacy/image`，消除 dev 环境的 deprecation 警告。
 
+### 视觉设计复刻（参照 lipreadingmom.com 的 WordPress "Fresh & Clean" 主题）
+从目标站点实抓的 `style.css` 里取了具体设计 token，映射到 `react-notion-x` 的 CSS 变量体系：
+- **画布/卡片布局**：`body` 浅灰底 `#f6f6f6`，`.notion-frame` 变成居中白色卡片（`max-width:960px`、边框、圆角、阴影），导航栏 `.notion-header` 从原来的毛玻璃固定悬浮改成卡片内 `sticky` 定位、纯色浅灰底。
+- **字体**：`next/font/google` 引入三套字体（`lib/fonts.ts`）——站点标题用手写体 `Pacifico`（对应目标站的 `#site-title`），标题/文章标题用 `Noto Serif`（`Droid Serif` 已被 Google Fonts 废弃，用同源近似字体替代），正文/导航用 `Noto Sans`（替代 `Droid Sans`）。
+- **配色**：链接改成纯蓝 `#0099ff`、正文文字改成柔和灰 `#707070`（覆盖 `.notion` 作用域下的 `--fg-color`）、引用块改成浅灰底+灰边框。
+- **首页布局**：`.notion-gallery-grid` 从多列卡片网格改成纵向文章列表（缩略图左、标题摘要右），条目间用细分割线，对应目标站的博客列表样式。
+- **暗色模式**：目标站是纯浅色站点，因此移除了本项目原有的暗色模式切换（`NotionPageHeader`/`Footer` 里的切换按钮、`NotionPage.tsx` 的 `dark-mode` 逻辑、`_document.tsx` 里的 noflash 脚本），并删除了不再使用的 `lib/use-dark-mode.ts`、`lib/icons/{sun,moon}.tsx` 和 `@fisch0920/use-dark-mode` 依赖。
+
 ---
 
 ## 待办 / 后续优化

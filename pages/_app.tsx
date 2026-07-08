@@ -27,6 +27,7 @@ import {
   posthogConfig,
   posthogId
 } from '@/lib/config'
+import { fontBody, fontScript, fontSerif } from '@/lib/fonts'
 
 if (!isServer) {
   bootstrap()
@@ -61,5 +62,11 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [router.events])
 
-  return <Component {...pageProps} />
+  return (
+    <div
+      className={`${fontScript.variable} ${fontSerif.variable} ${fontBody.variable}`}
+    >
+      <Component {...pageProps} />
+    </div>
+  )
 }
