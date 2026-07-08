@@ -4,6 +4,10 @@
 export default {
   staticPageGenerationTimeout: 300,
   images: {
+    // in local dev, a system-wide proxy (e.g. Clash fake-ip DNS) can make
+    // upstream hostnames resolve to reserved IP ranges, which trips next/image's
+    // built-in SSRF guard. Vercel prod has no such proxy, so this only applies locally.
+    unoptimized: process.env.NODE_ENV !== 'production',
     remotePatterns: [
       { protocol: 'https', hostname: 'www.notion.so' },
       { protocol: 'https', hostname: 'notion.so' },
